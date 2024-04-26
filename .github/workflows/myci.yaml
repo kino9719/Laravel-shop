@@ -134,19 +134,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: API-documents
-          path: public/docs
-      - name: 生成 API 文件
-        run: |
-          mkdir documents
-          cp -r public/docs documents/.
+          path: docs
       - name: 準備要部署的檔案
         run: |
-          mkdir test-report
-          cp -r html-coverage/* test-report/.
+          mkdir public
+          mv html-coverage public/.
+          mv docs public/.
       - name: 上傳到 artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: test-report
+          path: public
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
